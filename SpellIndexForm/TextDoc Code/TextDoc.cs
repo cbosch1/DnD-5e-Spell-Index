@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace SpellIndexForm
 {
+    //Reads a formated text document and imports the contained spells.
     class TextDoc
     {
         public List<Spell> Pull()
@@ -24,6 +25,7 @@ namespace SpellIndexForm
             int spellLevel;
             string currentLine = "";
 
+            //Regex for removal of unused text in each line.
             var regexNumbers = new Regex(@"\D");
             var regexCastingTime = new Regex(@"Casting Time: ");
             var regexComponents = new Regex(@"Components: ");
@@ -32,9 +34,10 @@ namespace SpellIndexForm
             var regexDescription1 = new Regex(@"[\r\n]");
             var regexDescription2 = new Regex(@"  ");
 
+            //Opens text document
             using (var file = new System.IO.StreamReader(@"C:\Users\Conner\Dropbox\Programming\C#\D&D\Spell Index\SpellIndexForm\SpellIndexBaseText.txt"))
             {
-
+                //creates a new spell to add to the list through each iteration
                 do
                 {
                     Spell importedSpell = new Spell();
@@ -85,7 +88,7 @@ namespace SpellIndexForm
                             break;
                     }
 
-                    //Level
+                    //Level (accounting for Cantrips)
                     bool notCantrip = Int32.TryParse(regexNumbers.Replace(currentLineFull, ""), out spellLevel);
                     if (notCantrip)
                     {
@@ -128,13 +131,14 @@ namespace SpellIndexForm
                         importedSpell.Concentration = false;
                     }
                     currentLine = file.ReadLine();
-                    currentLine = file.ReadLine();
+                    currentLine = file.ReadLine(); //double line accounting for blank space
 
-                    //Description
+                    //Description 
                     List<string> description = new List<string>();
                     bool exit;
                     do
                     {
+                        //Compiles lines into one paragraph string.
                         List<string> paragraph = new List<string>();
                         string currentParagraph = "";
                         do
@@ -142,36 +146,40 @@ namespace SpellIndexForm
                             exit = false;
                             paragraph.Add(currentLine);
                             currentLine = file.ReadLine();
-                            switch (currentLine)
+                            switch (currentLine) //Breaks if reaches end of paragraph accounting for end of spell and end of document
                             {
                                 case "" :
                                     exit = true;
                                     break;
-                                case "---" :
+                                case "---" : //end of spell symbol
                                     exit = true;
                                     break;
-                                case "***" :
+                                case "***" : //end of document symbol
                                     exit = true;
                                     break;
                                 default :
                                     break;
                             }
                         }
-                        while (exit != true);
+                        while (exit != true); //Loops if it is not the end of the paragraph
 
-                        foreach (string p in paragraph)
+                        foreach (string p in paragraph) //Compiles the string list into one paragraph
                         {
                             currentParagraph += p;
                         }
+                        //Adds the paragraph to the spell description
                         importedSpell.Desctription += (currentParagraph + Environment.NewLine + Environment.NewLine);
                     }
+                    //Breaks if it is the end of the spell
                     while (currentLine != ("---"));
 
+                    //Adds spell to the main list and sets up for the next spell
                     spellID++;
                     importedSpell.Id = spellID;
                     spells.Add(importedSpell);
                     currentLine = file.ReadLine();
                 }
+                //Breaks at the end of the document
                 while (currentLine != ("***"));
             }
             return spells;

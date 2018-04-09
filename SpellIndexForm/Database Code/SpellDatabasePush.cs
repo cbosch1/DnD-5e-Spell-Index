@@ -8,5 +8,6 @@ namespace SpellIndexForm
 {
     class SpellDatabaseImport
     {
+        //TODO: Implement a database of spells with a method to push spells to the database.
     }
 }

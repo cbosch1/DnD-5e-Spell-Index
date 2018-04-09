@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace SpellIndexForm
 {
+    //TODO: Add filter implementation
+
     public partial class Form1 : Form
     {
         List<Spell> spells;
@@ -77,7 +79,7 @@ namespace SpellIndexForm
 
                 //SpellDuration
                 lblSpellDuration.Text = CurrentSpell.Duration;
-                
+
 
                 //SpellDescription
                 lblSpellDescription.Text = CurrentSpell.Desctription;
@@ -93,12 +95,15 @@ namespace SpellIndexForm
 
         }
 
+        int levelSelected;
+
         private void btnGo_Click(object sender, EventArgs e)
         {
-            string searchText = boxSearch.Text;
-
-            CurrentSpell = spells.Find(p => p.Name.Equals(searchText, StringComparison.InvariantCultureIgnoreCase));
-
+            string searchText = boxSearch1.Text;
+            if (drdnClass.SelectedItem == null & drdnLevel.SelectedItem == null)
+            {
+                CurrentSpell = spells.Find(s => s.Name.Equals(searchText, StringComparison.InvariantCultureIgnoreCase));
+            }
             setSpellDisplay();
         }
 
@@ -126,5 +131,46 @@ namespace SpellIndexForm
         {
 
         }
-    }    
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void boxSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void drdnLevel_SelectedItemChanged(object sender, EventArgs e)
+        {
+            //TODO: Fix so the Level selection filter displays the filtered spells in the search drop down.
+
+            bool isLevelSelected = Int32.TryParse(drdnLevel.Text, out levelSelected);
+            if (isLevelSelected)
+            {
+                var levelSpells = spells.Where(s => int.Equals(s.Level, levelSelected)).Select(s => s);
+                foreach (var s in levelSpells)
+                {
+                    boxSearch1.Items.Add(s);
+                }
+            }
+            else
+            {
+                levelSelected = 0;
+                var levelSpells = spells.Where(s => int.Equals(s.Level, levelSelected)).Select(s => s);
+
+                foreach (var s in levelSpells)
+                {
+                    boxSearch1.Items.Add(s);
+                }
+            }
+        }
+    }
 }
