@@ -16,7 +16,7 @@ namespace SpellIndexForm
 
         public SpellDatabase()
         {
-            //Sets connection data upon instantiation (TODO: Add overloads so you can build a different connection)
+            //Sets connection data upon instantiation (TODO: Add input from the application interface to connect to other database locations)
             builder.DataSource = "datasource";
             builder.InitialCatalog = "SpellDatabase";
             builder.UserID = "userid";

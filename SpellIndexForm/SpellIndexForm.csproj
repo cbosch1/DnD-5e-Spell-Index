@@ -84,7 +84,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Database Code\SpellDatabasePull.cs" />
+    <Compile Include="Database Code\SpellDatabase.cs" />
     <Compile Include="TextDoc Code\Spell.cs" />
     <Compile Include="TextDoc Code\TextDoc.cs" />
     <EmbeddedResource Include="Form1.resx">
