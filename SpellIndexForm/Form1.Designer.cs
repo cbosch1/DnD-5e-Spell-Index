@@ -47,6 +47,7 @@
             this.drdnClass = new System.Windows.Forms.ListBox();
             this.drdnLevel = new System.Windows.Forms.ListBox();
             this.boxSearch1 = new System.Windows.Forms.ComboBox();
+            this.btnPull = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -261,7 +262,7 @@
             "Warlock",
             "Wizard"});
             this.drdnClass.Location = new System.Drawing.Point(15, 60);
-            this.drdnClass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drdnClass.Margin = new System.Windows.Forms.Padding(4);
             this.drdnClass.Name = "drdnClass";
             this.drdnClass.Size = new System.Drawing.Size(65, 132);
             this.drdnClass.TabIndex = 23;
@@ -282,7 +283,7 @@
             "8th Level",
             "9th Level"});
             this.drdnLevel.Location = new System.Drawing.Point(89, 60);
-            this.drdnLevel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.drdnLevel.Margin = new System.Windows.Forms.Padding(4);
             this.drdnLevel.Name = "drdnLevel";
             this.drdnLevel.Size = new System.Drawing.Size(68, 164);
             this.drdnLevel.TabIndex = 24;
@@ -294,11 +295,21 @@
             this.boxSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.boxSearch1.FormattingEnabled = true;
             this.boxSearch1.Location = new System.Drawing.Point(90, 26);
-            this.boxSearch1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.boxSearch1.Margin = new System.Windows.Forms.Padding(4);
             this.boxSearch1.Name = "boxSearch1";
             this.boxSearch1.Size = new System.Drawing.Size(112, 24);
             this.boxSearch1.TabIndex = 25;
             this.boxSearch1.SelectedIndexChanged += new System.EventHandler(this.boxSearch_SelectedIndexChanged);
+            // 
+            // btnPull
+            // 
+            this.btnPull.Location = new System.Drawing.Point(198, 61);
+            this.btnPull.Name = "btnPull";
+            this.btnPull.Size = new System.Drawing.Size(81, 34);
+            this.btnPull.TabIndex = 26;
+            this.btnPull.Text = "Get Spells";
+            this.btnPull.UseVisualStyleBackColor = true;
+            this.btnPull.Click += new System.EventHandler(this.btnPull_Click);
             // 
             // Form1
             // 
@@ -306,6 +317,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(979, 776);
+            this.Controls.Add(this.btnPull);
             this.Controls.Add(this.boxSearch1);
             this.Controls.Add(this.drdnLevel);
             this.Controls.Add(this.drdnClass);
@@ -356,6 +368,9 @@
         private System.Windows.Forms.ListBox drdnClass;
         private System.Windows.Forms.ListBox drdnLevel;
         private System.Windows.Forms.ComboBox boxSearch1;
+        private System.Windows.Forms.Button btnPull;
+
+
     }
 }
 

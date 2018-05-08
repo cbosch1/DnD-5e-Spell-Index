@@ -7,49 +7,62 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Linq;
 
 namespace SpellIndexForm
 {
-    //TODO: Add filter implementation
-
     public partial class Form1 : Form
     {
-        List<Spell> spells;
+        List<DataSpell> SpellList = new List<DataSpell>();
+        SpellDatabase db = new SpellDatabase(); //TODO: Allow Database communications to be Asyncronous
+        private DataSpell CurrentSpell;
+
         public Form1()
         {
             InitializeComponent();
-
-            spells = new List<Spell>();
-            TextDoc gen = new TextDoc();
-            spells = gen.Pull();
+            try
+            {
+                //Generates a list of Database objects from the Database
+                SpellList = db.Pull();
+                if (SpellList != null)
+                {
+                    lblSpellDescription.Text = "Spell Database Accessed Successfully";
+                }
+                else
+                {
+                    lblSpellDescription.Text = "Error! Spell List Not Pulled!";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblSpellDescription.Text = ex.ToString();
+            }
         }
 
-        private Spell CurrentSpell;
-
+        //Method to display the currently selected spell
         public void setSpellDisplay()
         {
-            if (CurrentSpell is Spell)
+            if (CurrentSpell is DataSpell)
             {
                 //Name
-                lblSpellName.Text = CurrentSpell.Name;
+                lblSpellName.Text = CurrentSpell.name;
 
                 //Level
-                if (CurrentSpell.Level == 0)
+                if (CurrentSpell.level == 0)
                 {
                     lblSpellLevel.Text = "Cantrip";
                 }
                 else
                 {
-                    string stringSpellLevel = CurrentSpell.Level.ToString();
+                    string stringSpellLevel = CurrentSpell.level.ToString();
                     lblSpellLevel.Text = $"Level: {stringSpellLevel}";
                 }
 
                 //School
-                string stringSpellSchool = CurrentSpell.School.ToString();
-                lblSpellSchool.Text = stringSpellSchool;
+                lblSpellSchool.Text = CurrentSpell.school;
 
                 //Ritual
-                if (CurrentSpell.Ritual == true)
+                if (CurrentSpell.ritual == true)
                 {
                     lblRitual.Text = "(Ritual)";
                 }
@@ -59,13 +72,13 @@ namespace SpellIndexForm
                 }
 
                 //Casting Time
-                lblSpellCastingTime.Text = CurrentSpell.CastTime;
+                lblSpellCastingTime.Text = CurrentSpell.castTime;
 
                 //Range
-                if (CurrentSpell.Range != 0)
+                if (CurrentSpell.range != 0)
                 {
-                    int intSpellRange = CurrentSpell.Range / 5;
-                    string stringSpellRange = $"{intSpellRange} sq ({CurrentSpell.Range} ft)";
+                    int intSpellRange = CurrentSpell.range / 5;
+                    string stringSpellRange = $"{intSpellRange} sq ({CurrentSpell.range} ft)";
                     lblSpellRange.Text = stringSpellRange;
                 }
                 else
@@ -74,15 +87,14 @@ namespace SpellIndexForm
                 }
 
                 //SpellComponents
-                string stringSpellComponents = CurrentSpell.ComponentType.ToString();
-                lblSpellComponents.Text = stringSpellComponents;
+                lblSpellComponents.Text = CurrentSpell.componentType;
 
                 //SpellDuration
-                lblSpellDuration.Text = CurrentSpell.Duration;
+                lblSpellDuration.Text = CurrentSpell.duration;
 
 
                 //SpellDescription
-                lblSpellDescription.Text = CurrentSpell.Desctription;
+                lblSpellDescription.Text = CurrentSpell.description;
             }
             else
             {
@@ -95,14 +107,13 @@ namespace SpellIndexForm
 
         }
 
-        int levelSelected;
-
+        //Takes the text from the search box then attempts to find and display a corresponding spell
         private void btnGo_Click(object sender, EventArgs e)
         {
             string searchText = boxSearch1.Text;
             if (drdnClass.SelectedItem == null & drdnLevel.SelectedItem == null)
             {
-                CurrentSpell = spells.Find(s => s.Name.Equals(searchText, StringComparison.InvariantCultureIgnoreCase));
+                CurrentSpell = SpellList.Find(s => s.name.Equals(searchText, StringComparison.InvariantCultureIgnoreCase));
             }
             setSpellDisplay();
         }
@@ -152,7 +163,7 @@ namespace SpellIndexForm
         {
             //TODO: Fix so the Level selection filter displays the filtered spells in the search drop down.
 
-            bool isLevelSelected = Int32.TryParse(drdnLevel.Text, out levelSelected);
+            /* bool isLevelSelected = Int32.TryParse(drdnLevel.Text, out levelSelected);
             if (isLevelSelected)
             {
                 var levelSpells = spells.Where(s => int.Equals(s.Level, levelSelected)).Select(s => s);
@@ -170,7 +181,12 @@ namespace SpellIndexForm
                 {
                     boxSearch1.Items.Add(s);
                 }
-            }
+            } */
+        }
+
+        private void btnPull_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

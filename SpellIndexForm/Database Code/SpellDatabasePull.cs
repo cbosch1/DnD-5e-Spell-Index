@@ -3,48 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
 using System.Data.SqlClient;
 
 namespace SpellIndexForm
 {
-    static partial class SpellDatabase
+    //Class for handling Database interations
+    public class SpellDatabase
     {
-        static public Spell Pull()
+        SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+
+        public SpellDatabase()
         {
-            Spell pulledSpell = new Spell();
-            try
+            //Sets connection data upon instantiation (TODO: Add overloads so you can build a different connection)
+            builder.DataSource = "datasource";
+            builder.InitialCatalog = "SpellDatabase";
+            builder.UserID = "userid";
+            builder.Password = "password";
+        }
+
+        //Connects to the Database and fills a list of DataSpell objects for iteration through the search engine
+        public List<DataSpell> Pull()
+        {
+            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
-                // Builds connection string
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "datasource";
-                builder.InitialCatalog = "initialcatalog";
-                builder.UserID = "userid";
-                builder.Password = "password";
+                connection.Open();
+                DataContext db = new DataContext(connection);
 
-                // Connects to SQL
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                try
                 {
-                    connection.Open();
+                    Table<DataSpell> tableSpells = db.GetTable<DataSpell>();
+                    List<DataSpell> spells = new List<DataSpell>();
 
-                    try
+                    foreach (DataSpell spell in tableSpells)
                     {
-                        //TODO: Modify insertCommand to pull a spell from SQL Database that matches the input
-                        SqlCommand insertCommand = new SqlCommand($"INSERT INTO Spells (FirstColumn)" +
-                            $" VALUES (@0)", connection);
-                        
-                        //TODO: Build spell object from SQL Connection's returned data
-                        //TODO: Set built spell object to pulledSpell
+                        spells.Add(spell);
                     }
-                    catch (Exception e)
-                    {
-                        //Post exception e to appilcation display
-                    }
+                    return spells;
+                }
+                catch  //TODO: Add better exception handling
+                {
+                    return null;
                 }
             }
-            catch (Exception e)
-            {
-                //Post exception e to appilcation display
-            }
-            return pulledSpell;
         }
+
+        //TODO: Add implementation for adding spells to the Database from the applicaiton
+        public bool Push(DataSpell pushedSpell)
+        {
+            return false;
+        }
+    }
 }

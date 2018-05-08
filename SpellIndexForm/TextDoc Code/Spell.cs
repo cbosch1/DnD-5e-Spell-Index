@@ -20,8 +20,7 @@ namespace SpellIndexForm
             public string PermanentDescr { get; set; }
             public string PlayerClass { get; set; }
             public string ComponentType { get; set; }
-
-            public ArcaneTradition School { get; set; }
+            public string School { get; set; }
 
             public bool Concentration { get; set; }
             public bool spellCanOvercharge { get; set; }

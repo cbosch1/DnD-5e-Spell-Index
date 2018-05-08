@@ -60,34 +60,8 @@ namespace SpellIndexForm
                     //School
                     string currentLineFull = currentLine;
                     currentLine = regexSchool.Replace(currentLine, "$1").ToLower();
-                    switch (currentLine)
-                    {
-                        case ("abjuration") :
-                            importedSpell.School = ArcaneTradition.Abjuration;
-                            break;
-                        case ("conjuration"):
-                            importedSpell.School = ArcaneTradition.Conjuration;
-                            break;
-                        case ("divination"):
-                            importedSpell.School = ArcaneTradition.Divination;
-                            break;
-                        case ("enchantment"):
-                            importedSpell.School = ArcaneTradition.Enchantment;
-                            break;
-                        case ("evocation"):
-                            importedSpell.School = ArcaneTradition.Evocation;
-                            break;
-                        case ("illusion"):
-                            importedSpell.School = ArcaneTradition.Illusion;
-                            break;
-                        case ("necromancy"):
-                            importedSpell.School = ArcaneTradition.Necromancy;
-                            break;
-                        case ("transmutation"):
-                            importedSpell.School = ArcaneTradition.Transmutation;
-                            break;
-                    }
-
+                    importedSpell.School = currentLine;
+                       
                     //Level (accounting for Cantrips)
                     bool notCantrip = Int32.TryParse(regexNumbers.Replace(currentLineFull, ""), out spellLevel);
                     if (notCantrip)
