@@ -44,10 +44,10 @@
             this.lblRitual = new System.Windows.Forms.Label();
             this.lblSearch = new System.Windows.Forms.Label();
             this.btnGo = new System.Windows.Forms.Button();
-            this.drdnClass = new System.Windows.Forms.ListBox();
+            this.drdnSchool = new System.Windows.Forms.ListBox();
             this.drdnLevel = new System.Windows.Forms.ListBox();
             this.boxSearch1 = new System.Windows.Forms.ComboBox();
-            this.btnPull = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -239,7 +239,7 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(215, 25);
+            this.btnGo.Location = new System.Drawing.Point(237, 25);
             this.btnGo.Margin = new System.Windows.Forms.Padding(60, 28, 60, 28);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(42, 26);
@@ -248,24 +248,25 @@
             this.btnGo.UseVisualStyleBackColor = true;
             this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
-            // drdnClass
+            // drdnSchool
             // 
-            this.drdnClass.FormattingEnabled = true;
-            this.drdnClass.ItemHeight = 16;
-            this.drdnClass.Items.AddRange(new object[] {
-            "Bard",
-            "Cleric",
-            "Druid",
-            "Paladin",
-            "Ranger",
-            "Sorcerer",
-            "Warlock",
-            "Wizard"});
-            this.drdnClass.Location = new System.Drawing.Point(15, 60);
-            this.drdnClass.Margin = new System.Windows.Forms.Padding(4);
-            this.drdnClass.Name = "drdnClass";
-            this.drdnClass.Size = new System.Drawing.Size(65, 132);
-            this.drdnClass.TabIndex = 23;
+            this.drdnSchool.FormattingEnabled = true;
+            this.drdnSchool.ItemHeight = 16;
+            this.drdnSchool.Items.AddRange(new object[] {
+            "Abjuration",
+            "Conjuration",
+            "Divination",
+            "Enchantment",
+            "Evocation",
+            "Illusion",
+            "Necromancy",
+            "Transmutation"});
+            this.drdnSchool.Location = new System.Drawing.Point(15, 60);
+            this.drdnSchool.Margin = new System.Windows.Forms.Padding(4);
+            this.drdnSchool.Name = "drdnSchool";
+            this.drdnSchool.Size = new System.Drawing.Size(103, 148);
+            this.drdnSchool.TabIndex = 23;
+            this.drdnSchool.SelectedIndexChanged += new System.EventHandler(this.drdnSchool_SelectedIndexChanged);
             // 
             // drdnLevel
             // 
@@ -273,19 +274,19 @@
             this.drdnLevel.ItemHeight = 16;
             this.drdnLevel.Items.AddRange(new object[] {
             "Cantrip",
-            "1st Level",
-            "2nd Level",
-            "3rd Level",
-            "4th Level",
-            "5th Level",
-            "6th Level",
-            "7th Level",
-            "8th Level",
-            "9th Level"});
-            this.drdnLevel.Location = new System.Drawing.Point(89, 60);
+            "Level 1",
+            "Level 2",
+            "Level 3",
+            "Level 4",
+            "Level 5",
+            "Level 6",
+            "Level 7",
+            "Level 8",
+            "Level 9"});
+            this.drdnLevel.Location = new System.Drawing.Point(126, 61);
             this.drdnLevel.Margin = new System.Windows.Forms.Padding(4);
             this.drdnLevel.Name = "drdnLevel";
-            this.drdnLevel.Size = new System.Drawing.Size(68, 164);
+            this.drdnLevel.Size = new System.Drawing.Size(65, 180);
             this.drdnLevel.TabIndex = 24;
             this.drdnLevel.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
@@ -297,19 +298,19 @@
             this.boxSearch1.Location = new System.Drawing.Point(90, 26);
             this.boxSearch1.Margin = new System.Windows.Forms.Padding(4);
             this.boxSearch1.Name = "boxSearch1";
-            this.boxSearch1.Size = new System.Drawing.Size(112, 24);
+            this.boxSearch1.Size = new System.Drawing.Size(134, 24);
             this.boxSearch1.TabIndex = 25;
             this.boxSearch1.SelectedIndexChanged += new System.EventHandler(this.boxSearch_SelectedIndexChanged);
             // 
-            // btnPull
+            // btnReset
             // 
-            this.btnPull.Location = new System.Drawing.Point(198, 61);
-            this.btnPull.Name = "btnPull";
-            this.btnPull.Size = new System.Drawing.Size(81, 34);
-            this.btnPull.TabIndex = 26;
-            this.btnPull.Text = "Get Spells";
-            this.btnPull.UseVisualStyleBackColor = true;
-            this.btnPull.Click += new System.EventHandler(this.btnPull_Click);
+            this.btnReset.Location = new System.Drawing.Point(198, 61);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(81, 28);
+            this.btnReset.TabIndex = 27;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // Form1
             // 
@@ -317,10 +318,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(979, 776);
-            this.Controls.Add(this.btnPull);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.boxSearch1);
             this.Controls.Add(this.drdnLevel);
-            this.Controls.Add(this.drdnClass);
+            this.Controls.Add(this.drdnSchool);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.lblRitual);
@@ -365,12 +366,10 @@
         private System.Windows.Forms.Label lblRitual;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.Button btnGo;
-        private System.Windows.Forms.ListBox drdnClass;
+        private System.Windows.Forms.ListBox drdnSchool;
         private System.Windows.Forms.ListBox drdnLevel;
         private System.Windows.Forms.ComboBox boxSearch1;
-        private System.Windows.Forms.Button btnPull;
-
-
+        private System.Windows.Forms.Button btnReset;
     }
 }
 
