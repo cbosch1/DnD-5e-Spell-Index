@@ -1,6 +1,17 @@
 # DnD-5e-Spell-Index
 A minor windows form application that retrieves a searched spell out of a database and displays it to the user.
 
+UPDATE: May 23rd 2018
+
+  -Database Progress:
+I have not worked on the Database code since the last update. However, I do plan on including a way to add spells to the database, as well as modify the database connection information in the future.
+
+  -Search Filtering:
+I have succesfully implemented filtering by School and by Level. The application works with either one selected or both selected. I have included a reset button that deselects the filters. The filtered spell list can be viewed by clicking on the down arrow of the search bar. I plan to list the filtered spells in a better, more user friendly way in the future. 
+
+  -User Interface:
+I plan on updating the user interface in the future. Right now it is a really rough windows form app and I hope to eventually reach a graphical application. I am not going to lie, that will be a very big hurdle to get over in the future. So it is something that is planned but will probably not see any implementation soon.
+
 UPDATE: May 8th 2018
 
   -Database Progress:
