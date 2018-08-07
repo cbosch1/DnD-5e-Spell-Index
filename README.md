@@ -1,4 +1,7 @@
 # DnD-5e-Spell-Index
+PROJECT IS NOT CURRENTLY BEING WORKED ON
+   This was my first programming project and now that I have been programming for a bit I realize there are many issues with the architecture. I plan on recreating the project in the future but as of right now I am not working on it. (8/6/18)
+
 A minor windows form application that retrieves a searched spell out of a database and displays it to the user.
 
 UPDATE: May 23rd 2018
